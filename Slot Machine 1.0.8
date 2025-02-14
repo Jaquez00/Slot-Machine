@@ -4,6 +4,7 @@
 import time
 import random
 import math
+import os
 from typing import clear_overloads
 
 extension = False
@@ -12,7 +13,7 @@ loan = False
 loancounter = 0
 
 time.sleep(0.3)
-print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.7.1")
+print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.8")
 time.sleep(0.3)
 print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|")
 time.sleep(0.3)
@@ -40,7 +41,9 @@ def bank():
   global money
   global loan
   if loan:
-    print("You have ", money, " dollars, and 25 dollars of loan debt")
+    print(" --------------------------------------------------")
+    print("|You have ", money, " dollars, and 25 dollars of loan debt|")
+    print(" --------------------------------------------------")
   else:
     print("You have ", money, "dollars")
 
@@ -116,6 +119,24 @@ def exten():
 
 #################################
 
+def clear_previous():
+    print("\033[H\033[J", end='')  # Clear screen
+    print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.7.1")
+    print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|")
+    print("|__   |  |__|  1  | | |    | 1 1 |     |   --|     |-   -| 1 1 |   __|")
+    print("|_____|_____|_____| |_|    |_|_|_|__|__|_____|__|__|_____|_|___|_____|")
+    print(" ")
+    print(" -------------------------")
+    print("|B to bank |   Q to quit  |")
+    print(" -------------------------")
+    print("|P to play | C for choices|")
+    print(" -------------------------")
+    print(" ")
+    print(" ---------------------------------")
+    print("|All answers must be in lowercase!|")
+    print(" ---------------------------------")
+    print(" ")
+
 def gamble():
   global money
   global loan
@@ -123,10 +144,10 @@ def gamble():
   global extension
 
   choice = input("Input your choice: ")
+  clear_previous()
   if choice == "b".lower():
     print(" ")
     bank()
-    print("-------------")
     gamble()
   if choice == "q" :
     if loan:
