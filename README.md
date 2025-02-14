@@ -1,2 +1,2 @@
-# Past version
-Find all past versions here
+# Slot Machine
+Watch my Python learning journey through Slot-Machine.
