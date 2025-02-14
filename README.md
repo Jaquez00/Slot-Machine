@@ -1,2 +1,2 @@
-# Slot-Machine
-Project I started working on to learn Python, this shows my progression over time.
+# Past version
+Find all past versions here
