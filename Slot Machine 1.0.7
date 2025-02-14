@@ -12,7 +12,7 @@ loan = False
 loancounter = 0
 
 time.sleep(0.3)
-print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.7")
+print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.7.1")
 time.sleep(0.3)
 print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|")
 time.sleep(0.3)
@@ -22,7 +22,7 @@ print("|_____|_____|_____| |_|    |_|_|_|__|__|_____|__|__|_____|_|___|_____|")
 time.sleep(0.5)
 
 
-                                                                  
+
 print(" ")
 print(" -------------------------")
 print("|B to bank |   Q to quit  |")
@@ -113,7 +113,7 @@ def exten():
   else:
     print("You were unable to pay your debts and you have been arrested!")
     quit()
-    
+
 #################################
 
 def gamble():
@@ -121,7 +121,7 @@ def gamble():
   global loan
   global loancounter
   global extension
-  
+
   choice = input("Input your choice: ")
   if choice == "b".lower():
     print(" ")
@@ -135,11 +135,11 @@ def gamble():
       if choice == "yes":
         if money < 25:
           print(" ")
-          print("you dont have enough money! you are arrested!")
+          print("You dont have enough money! you are arrested!")
           quit()
         else:
           print(" ")
-          print("you have paid off your loans and you are free to go")
+          print("You have paid off your loans and you are free to go")
           money = money - 25
           loan = False
           extension = False
@@ -147,9 +147,9 @@ def gamble():
           quit()
       else:
         print(" ")
-        print("you are arrested, to jail bozo!")
+        print("You are arrested, to jail bozo!")
         quit()
-    print("ur not a man")
+    print("Theres never an end to the slot machine.")
     quit()
   if choice == "c".lower():
     print(" ")
@@ -196,24 +196,24 @@ def gamble():
       else:
         print("You have already taken out a loan!")
         print("-------------")
-        print("wanna rob random hobo for money?")
+        print("Rob a random hobo for money?")
         choice = input(" ").lower()
         if choice == "yes":
           chance = random.randint(1,4)
           if chance == 3:
-            print("you robbed random hobo and got 15 dolalrs!")
+            print("You robbed random hobo and got 15 dollars!")
             money = money + 15
           else:
             print("-------------")
-            print("the hobo had the blicky and you died")
+            print("The hobo had the blicky and you died")
             quit()
         else:
           print(" ")
-          print("you died of boredom")
+          print("You died of boredom")
           quit()
     else:
       print(" ")
-      print("no more gamble?")
+      print("No more gambling")
       quit()
   slot1 = random.randint(1,9)
   slot2 = random.randint(1,9)
@@ -229,7 +229,7 @@ def gamble():
     loancounter = loancounter + 1
   if extension:
     extension = extension + 1
-  
+
   if slot1 == slot2 == slot3:
     print("  -----------")
     print(" |Jackpot +50|")
