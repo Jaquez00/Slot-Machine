@@ -5,15 +5,21 @@ import time
 import random
 import math
 import os
-from typing import clear_overloads
+from typing import Counter, clear_overloads
 
 extension = False
 money = 25
 loan = False
 loancounter = 0
+contin = True
+debug = False
+jackpot = 0
+twomatch = 0
+nomatch = 0
+usedcmds = False
 
 time.sleep(0.3)
-print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.9")
+print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.1.0")
 time.sleep(0.3)
 print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|")
 time.sleep(0.3)
@@ -36,6 +42,126 @@ print("|All answers must be in lowercase!|")
 print(" ---------------------------------")
 print(" ")
 
+def cmdchoice():
+  global usedcmds
+  global jackpot
+  global nomatch
+  global twomatch
+  global loancounter
+  global extension
+  global money
+  global loan
+  global debug
+  global contin
+  choicecmd = input("slotmachine.py: ")
+  if choicecmd == "quit":
+    clear_previous()
+    gamble()
+  if choicecmd == "list":
+    print(" --------------------------------------------------")
+    print("|add money - adds money                             |")
+    print(" --------------------------------------------------")
+    print("|subtract money - subtracts money                   |")
+    print(" --------------------------------------------------")
+    print("|loan - Activates or deactivates loans              |")
+    print(" --------------------------------------------------")
+    print("|reset loan - resets the countdown on a loan       |")
+    print(" --------------------------------------------------")
+    print("|reset - resets the game/starts new game           |")
+    print(" --------------------------------------------------")
+    print("|quit - exit cmds                                  |")
+    print(" --------------------------------------------------")
+    cmdchoice()
+  if choicecmd == "add money":
+    addmoney = int(input("How much money would you like to add? "))
+    money = money + addmoney
+    print("You now have " + str(money) + " dollars.")
+    cmdchoice()
+  if choicecmd == "subtract money":
+    subtractmoney = int(input("How much money would you like to substract? "))
+    money = money - subtractmoney
+    print("You now have " + str(money) + " dollars.")
+    cmdchoice()
+  if choicecmd == "loan":
+    if not loan:
+      loan = True
+      print("You have activated loans.")
+      cmdchoice()
+    if loan:
+      loan = False
+      loancounter = 0
+      extension = False
+      print("You have deactivated loans.")
+      cmdchoice()
+  if choicecmd == "reset loan":
+    loancounter = 0
+    extension = False
+    print("You have reset the loan countdown.")
+    cmdchoice()
+  if choicecmd == "reset":
+    money = 25
+    loan = False
+    loancounter = 0
+    extension = False
+    jackpot = 0
+    twomatch = 0
+    nomatch = 0
+    debug = False
+    contin = True
+    usedcmds = False
+    print("You have reset the game.")
+    cmdchoice()
+  else:
+    print("Invalid command! Try again.")
+    cmdchoice()
+
+    
+def cmds():
+  global choicecmd
+  global money
+  clear_previous()
+  print(" ---------------------------------------------------------------------------------------------------------------------------------------------")
+  print("|Welcome to Commands, you are basically a god here, you can modify anything you want|Type 'list' to view all commands, or vist the github page|.")
+  print(" ---------------------------------------------------------------------------------------------------------------------------------------------")
+  cmdchoice()
+
+def debugmode():
+  global debug
+  if not debug:
+    debug = True
+    print(" -----------------------------")
+    print("|Debug mode has been activated|")
+    print(" -----------------------------")
+    gamble()
+  if debug:
+    debug = False
+    print(" -------------------------------")
+    print("|Debug mode has been deactivated|")
+    print(" -------------------------------")
+    gamble()
+
+def check():
+  global contin
+  global money
+  if contin:
+    if money > 99:
+      print(" ------------------------------------------------------------------------------------------------")
+      print("|You have reached 100+ dollars, its considered once you reach this point, you've beaten the game!|")
+      print(" ------------------------------------------------------------------------------------------------")
+      print(" -------------------")
+      print("|1. Continue playing|")
+      print(" -------------------")
+      print("|2. Quit            |")
+      print(" -------------------")
+      choice = input(" ")
+      if choice == "1":
+        contin = False
+        clear_previous()
+        gamble()
+      else:
+        print("Thank you for playing!")
+        quit()
+
 def bank():
   global loan
   global money
@@ -44,10 +170,21 @@ def bank():
     print(" --------------------------------------------------")
     print("|You have ", money, " dollars, and 25 dollars of loan debt|")
     print(" --------------------------------------------------")
+  elif money < 10:
+    print(" ------------------")
+    print("|You have", money, "dollars|")
+    print(" ------------------")
+  elif money > 9 and money < 100:
+    print(" -------------------")
+    print("|You have", money, "dollars|")
+    print(" -------------------")
   else:
-    print("You have ", money, "dollars")
+    print(" --------------------")
+    print("|You have", money, "dollars|")
+    print(" --------------------")
 
 def loancount():
+  global usedcmds
   global money
   global loancounter
   global loan
@@ -120,9 +257,21 @@ def exten():
 #################################
 
 def clear_previous():
+  if not debug:
     print("\033[H\033[J", end='')  # Clear screen
-    print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.9")
+    print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.1.0")
     print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|")
+    print("|__   |  |__|  1  | | |    | 1 1 |     |   --|     |-   -| 1 1 |   __|")
+    print("|_____|_____|_____| |_|    |_|_|_|__|__|_____|__|__|_____|_|___|_____|")
+    print(" ")
+    print(" ---------------------------------")
+    print("|All answers must be in lowercase!|")
+    print(" ---------------------------------")
+    print(" ")
+  if debug:
+    print("\033[H\033[J", end='')  # Clear screen
+    print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.1.0")
+    print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|  [DEBUG MODE]")
     print("|__   |  |__|  1  | | |    | 1 1 |     |   --|     |-   -| 1 1 |   __|")
     print("|_____|_____|_____| |_|    |_|_|_|__|__|_____|__|__|_____|_|___|_____|")
     print(" ")
@@ -136,9 +285,16 @@ def gamble():
   global loan
   global loancounter
   global extension
+  global nomatch
+  global jackpot
+  global twomatch
+  global usedcmds
+  global contin
+  global debug
 
   choice = input("Input your choice: ")
   clear_previous()
+  check()
   if choice == "b".lower():
     print(" ")
     bank()
@@ -164,27 +320,62 @@ def gamble():
         print(" ")
         print("You are arrested, to jail bozo!")
         quit()
-    print("Theres never an end to the slot machine.")
+    print("You left the slot machine with", money, "dollars!")
+    print(" -----------")
+    print("|1. New game|")
+    print(" -----------")
+    print("|2. Quit    |")
+    print(" -----------")
+    choice = input(" ")
+    if choice == "1":
+      clear_previous()
+      loan = False
+      extension = False
+      money = 25
+      loancounter = 0
+      twomatch = 0
+      nomatch = 0
+      jackpot = 0
+      debug = False
+      contin = True
+      usedcmds = False
+      print(" -------------------------------------")
+      print("|You started a new game! C for choices|")
+      print(" -------------------------------------")
+      gamble()
+    else:
+      clear_previous()
+      print("Thank you for playing!")
     quit()
   if choice == "c".lower():
     print(" ")
-    print(" -------------------------")
-    print("|B to bank |   Q to quit  |")
-    print(" -------------------------")
-    print("|P to play | C for choices|")
-    print(" -------------------------")
+    print(" --------------------------------------")
+    print("|B to bank |   Q to quit  |db Debug Mode|")
+    print(" --------------------------------------")
+    print("|P to play | C for choices|cmds Commands|")
+    print(" --------------------------------------")
     print(" ")
     gamble()
+  if choice == "db":
+    debugmode()
+  if choice == "cmds":
+    usedcmds = True
+    cmds()
+    
   if money > 4:
     money = money - 5
   else:
     print(" ")
-    print("no casino money left")
+    print(" -----------------------")
+    print("|Your card was declined!|")
+    print(" -----------------------")
+    time.sleep(1)
     print(" --------------")
     print("|1. Go to bank|")
     print(" --------------")
     print("|2. Quit      |")
     print(" --------------")
+
     choice = input(" ").lower()
     if choice == "1":
       print(" ")
@@ -226,18 +417,26 @@ def gamble():
           print(" ")
           print("You died of boredom")
           quit()
-    else:
+    elif choice == "2":
       print(" ")
       print("No more gambling")
       quit()
+  
   slot1 = random.randint(1,9)
   slot2 = random.randint(1,9)
   slot3 = random.randint(1,9)
 
-  print(" ")
-  print(" ------^------")
-  print("{|", slot1, "|", slot2, "|", slot3, "|}")
-  print(" -------------")
+  if not debug:
+    print(" ")
+    print("   ------^------")
+    print("  {|", slot1, "|", slot2, "|", slot3, "|}")
+    print("   -------------")
+  else:
+    print("Bank:", money,"$|loan =", loan, "|loancounter =", loancounter, "|extension =", extension, "|contin =", contin)
+    print(" Used Cmds =", usedcmds)
+    print("   ------^------        No-Matches =", nomatch)
+    print("  {|", slot1, "|", slot2, "|", slot3, "|}       Two-Matches =", twomatch)
+    print("   -------------        Jackpot =", jackpot)
 
 
   if loan: 
@@ -246,9 +445,9 @@ def gamble():
     extension = extension + 1
 
   if slot1 == slot2 == slot3:
-    print("  -----------")
-    print(" |Jackpot +50|")
-    print("  -----------")
+    print("    -----------")
+    print("   |Jackpot +50|")
+    print("    -----------")
     money = money + 50
     if money == 10:
       print("You only have 10 dollars left!")
@@ -259,11 +458,12 @@ def gamble():
       loancount()
     if extension == 4:
       exten()
+    jackpot = jackpot + 1
     gamble()
   elif slot1 == slot2 or slot1 == slot3 or slot2 == slot3:
-    print("  ----------")
-    print(" |Double +10|")
-    print("  ----------")
+    print("    ----------")
+    print("   |Double +10|")
+    print("    ----------")
     print(" ")
     money = money + 10
     if money == 10:
@@ -274,11 +474,12 @@ def gamble():
       loancount()
     if extension == 4:
       exten()
+    twomatch = twomatch + 1
     gamble()
   else:
-    print("  ----------")
-    print(" |No matches|")
-    print("  ----------")
+    print("    ----------")
+    print("   |No matches|")
+    print("    ----------")
     if money == 10:
       print("You only have 10 dollars left!")
     elif money == 5:
@@ -288,6 +489,9 @@ def gamble():
       loancount()
     if extension == 4:
       exten()  
+    nomatch = nomatch + 1
     gamble()
 
 gamble()
+
+
