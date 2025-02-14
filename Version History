@@ -5,3 +5,5 @@ Version 1.0.0 - The basic idea slot machine was created, you could spin for mone
 Version 1.0.7 - First version that was made public, introduced the bank, and loan system. UI updates and more.
 
 Version 1.0.7.1 - Bug fixes and grammar fixes
+
+Version 1.0.8 - Huge UI updates, everthing is now more streamlined and readible. Fixed a bug where you could not pay loans back
