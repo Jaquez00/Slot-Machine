@@ -1,0 +1,292 @@
+#Old 1.0.9
+
+import time
+import random
+import math
+import os
+from typing import clear_overloads
+
+extension = False
+money = 25
+loan = False
+loancounter = 0
+
+time.sleep(0.3)
+print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.9")
+time.sleep(0.3)
+print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|")
+time.sleep(0.3)
+print("|__   |  |__|  1  | | |    | 1 1 |     |   --|     |-   -| 1 1 |   __|")
+time.sleep(0.3)
+print("|_____|_____|_____| |_|    |_|_|_|__|__|_____|__|__|_____|_|___|_____|")
+time.sleep(0.5)
+
+
+
+print(" ")
+print(" -------------------------")
+print("|B to bank |   Q to quit  |")
+print(" -------------------------")
+print("|P to play | C for choices|")
+print(" -------------------------")
+print(" ")
+print(" ---------------------------------")
+print("|All answers must be in lowercase!|")
+print(" ---------------------------------")
+print(" ")
+
+def bank():
+  global loan
+  global money
+  global loan
+  if loan:
+    print(" --------------------------------------------------")
+    print("|You have ", money, " dollars, and 25 dollars of loan debt|")
+    print(" --------------------------------------------------")
+  else:
+    print("You have ", money, "dollars")
+
+def loancount():
+  global money
+  global loancounter
+  global loan
+  global extension
+  print(" ")
+  print("The bank has requested you to pay off your debts!")
+  print(" ------------")
+  print("|You owe: 25$|")
+  print(" ------------")
+  print(" ")
+  print("Would you like to pay off your debts or ask for an extension?")
+  print(" --------------------")
+  print("|1. Pay off debts    |")
+  print(" --------------------")
+  print("|2. Request Extension|")
+  print(" --------------------")
+  choice = input(" ")
+  if choice == "1":
+    if money > 24:
+      money = money - 25
+      print("You have paid off your debts!")
+      loan = False
+      loancounter = 0
+    else:
+      print(" ")
+      print("You do not have enough money to pay off your debts!")
+      print("Do you want an extension?")
+      choice = input(" ")
+      if choice == "yes":
+        print(" ")
+        print("You have recieved an extension!")
+        print("You must have 25 dollars ready!")
+        print("-------------")
+        extension = True
+      else:
+        print("You have failed to pay off your debts! You are arrested!")
+        quit()
+  elif choice == "2":
+    print(" ")
+    print("You have recieved an extension!")
+    print("You must have 25 dollars ready!")
+    print("-------------")
+    extension = True
+
+def exten():
+  global extension
+  global loan
+  global loancounter
+  global money
+  print("Your extension has expired! You must pay 25 dollars!")
+  print(" -----------------")
+  print("|1. Pay off debts|")
+  print(" -----------------")
+  print("|2. Quit         |")
+  print(" -----------------")
+  choice = input(" ")
+  if choice == "1":
+    if money > 24:
+      print("You have paid off your debts!")
+      loan = False
+      extension = False
+      loancounter = 0
+    else:
+      print("You do not have enough money! You have been arrested!")
+      quit()
+  else:
+    print("You were unable to pay your debts and you have been arrested!")
+    quit()
+
+#################################
+
+def clear_previous():
+    print("\033[H\033[J", end='')  # Clear screen
+    print(" _____ __    _____ _____    _____ _____ _____ _____ _____ _____ _____  Version 1.0.9")
+    print("|   __|  |  |     |_   _|  |     |  _  |     |  |  |     |   | |   __|")
+    print("|__   |  |__|  1  | | |    | 1 1 |     |   --|     |-   -| 1 1 |   __|")
+    print("|_____|_____|_____| |_|    |_|_|_|__|__|_____|__|__|_____|_|___|_____|")
+    print(" ")
+    print(" ---------------------------------")
+    print("|All answers must be in lowercase!|")
+    print(" ---------------------------------")
+    print(" ")
+
+def gamble():
+  global money
+  global loan
+  global loancounter
+  global extension
+
+  choice = input("Input your choice: ")
+  clear_previous()
+  if choice == "b".lower():
+    print(" ")
+    bank()
+    gamble()
+  if choice == "q" :
+    if loan:
+      print("You have unpaid loans! pay it off?")
+      choice = input(" ")
+      if choice == "yes":
+        if money < 25:
+          print(" ")
+          print("You dont have enough money! you are arrested!")
+          quit()
+        else:
+          print(" ")
+          print("You have paid off your loans and you are free to go")
+          money = money - 25
+          loan = False
+          extension = False
+          loancounter = 0
+          quit()
+      else:
+        print(" ")
+        print("You are arrested, to jail bozo!")
+        quit()
+    print("Theres never an end to the slot machine.")
+    quit()
+  if choice == "c".lower():
+    print(" ")
+    print(" -------------------------")
+    print("|B to bank |   Q to quit  |")
+    print(" -------------------------")
+    print("|P to play | C for choices|")
+    print(" -------------------------")
+    print(" ")
+    gamble()
+  if money > 4:
+    money = money - 5
+  else:
+    print(" ")
+    print("no casino money left")
+    print(" --------------")
+    print("|1. Go to bank|")
+    print(" --------------")
+    print("|2. Quit      |")
+    print(" --------------")
+    choice = input(" ").lower()
+    if choice == "1":
+      print(" ")
+      print(" -----------------------------------------")
+      print("|You have ", money, " dollars in your bank account|")
+      print(" -----------------------------------------")
+      print(" ")
+      print("Do you want to take out a loan?")
+      choice = input(" ").lower()
+      if choice == "yes":
+        print(" ")
+      else:
+        print("no more gamble?")
+        quit()
+      if not loan:
+        print(" ")
+        print(" ----------------------------------------------------")
+        print("|25 dollars has been added to bank your bank account!|")
+        print(" ----------------------------------------------------")
+        print(" ")
+        money = money + 25
+        loan = True
+        gamble()
+      else:
+        print("You have already taken out a loan!")
+        print("-------------")
+        print("Rob a random hobo for money?")
+        choice = input(" ").lower()
+        if choice == "yes":
+          chance = random.randint(1,4)
+          if chance == 3:
+            print("You robbed random hobo and got 15 dollars!")
+            money = money + 15
+          else:
+            print("-------------")
+            print("The hobo had the blicky and you died")
+            quit()
+        else:
+          print(" ")
+          print("You died of boredom")
+          quit()
+    else:
+      print(" ")
+      print("No more gambling")
+      quit()
+  slot1 = random.randint(1,9)
+  slot2 = random.randint(1,9)
+  slot3 = random.randint(1,9)
+
+  print(" ")
+  print(" ------^------")
+  print("{|", slot1, "|", slot2, "|", slot3, "|}")
+  print(" -------------")
+
+
+  if loan: 
+    loancounter = loancounter + 1
+  if extension:
+    extension = extension + 1
+
+  if slot1 == slot2 == slot3:
+    print("  -----------")
+    print(" |Jackpot +50|")
+    print("  -----------")
+    money = money + 50
+    if money == 10:
+      print("You only have 10 dollars left!")
+    elif money == 5:
+      print("You only have 5 dollars left!")
+    print("")
+    if loancounter == 5:
+      loancount()
+    if extension == 4:
+      exten()
+    gamble()
+  elif slot1 == slot2 or slot1 == slot3 or slot2 == slot3:
+    print("  ----------")
+    print(" |Double +10|")
+    print("  ----------")
+    print(" ")
+    money = money + 10
+    if money == 10:
+      print("You only have 10 dollars left!")
+    elif money == 5:
+      print("You only have 5 dollars left!")
+    if loancounter == 5:
+      loancount()
+    if extension == 4:
+      exten()
+    gamble()
+  else:
+    print("  ----------")
+    print(" |No matches|")
+    print("  ----------")
+    if money == 10:
+      print("You only have 10 dollars left!")
+    elif money == 5:
+      print("You only have 5 dollars left!")
+    print(" ")
+    if loancounter == 5:
+      loancount()
+    if extension == 4:
+      exten()  
+    gamble()
+
+gamble()
